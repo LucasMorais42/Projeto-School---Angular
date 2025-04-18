@@ -20,5 +20,35 @@
       "name": "Nicolas Aparecido",
       "course": "ADS"
     }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "name": "Análise e Desenvolvimento de Sistemas",
+      "price": "1000",
+      "active": true,
+      "promotion": true
+    },
+    {
+      "id": 2,
+      "name": "Engenharia Computação",
+      "price": "3000",
+      "active": true,
+      "promotion": null
+    },
+    {
+      "id": 3,
+      "name": "Moda",
+      "price": "1000",
+      "active": false,
+      "promotion": null
+    },
+    {
+      "id": 4,
+      "name": "Estatística",
+      "price": "600",
+      "active": false,
+      "promotion": true
+    }
   ]
 }
