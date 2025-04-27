@@ -33,7 +33,7 @@ export class CoursesComponent implements OnInit{
 }
 
   save(){
-      this.listaCursos.saveStudent(this.formGroupCourses.value).subscribe({
+      this.listaCursos.saveCourses(this.formGroupCourses.value).subscribe({
           next: json =>{
             this.Course.push(json);
             this.formGroupCourses.reset();

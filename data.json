@@ -49,6 +49,13 @@
       "price": "600",
       "active": false,
       "promotion": true
+    },
+    {
+      "id": 5,
+      "name": "Gastronomia",
+      "price": "500",
+      "active": true,
+      "promotion": true
     }
   ]
 }

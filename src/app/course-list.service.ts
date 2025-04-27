@@ -17,8 +17,7 @@ export class CourseListService {
   }
 
 
-  saveStudent(student: Courses): Observable<Courses>{
-      
+  saveCourses(student: Courses): Observable<Courses>{
         return this.http.post<Courses>(this.apiUrl, student);
     }
 }
