@@ -18,6 +18,7 @@ export class StudentsComponent implements OnInit {
   //array que salvará os dados da API em um array do tipo Student.
   students: Student[]=[];
   formGroupStudent : FormGroup;
+  isEditing: boolean = false;
 
   /*injeta o serviço aqui, no caso é como se eu fosse obrigar a usar o serviço ListaEstudantesService,
   e salvo essse serviço numa variável chamada listaEstudantes*/
@@ -38,17 +39,21 @@ export class StudentsComponent implements OnInit {
   //função que faz algo na hora que é inicializado o componente
   ngOnInit():void{
     //como a API é um OBSERVABLE, aqui tem que ser um SUBSCRIBE!
-    this.listaEstudantes.getStudents().subscribe({
+    this.loadStudents();
       //next significa que deu certo com a API, nesse caso os dados da API (json) são atribuidos a lista students
-      next: json => this.students=json
-  })
 }
+
+  loadStudents(){
+    this.listaEstudantes.getAll().subscribe({
+      next: json => this.students=json
+    })
+  }
 
   save(){
     /*ao chamar o metodo save, vai chamar o serviço listaEstudantes, no metodo saveStudent
       vai passar o valor que esta no FORMGROUPSTUDENT (ou seja, os valores que eu deixei la nos
       inputs do form, apos isso vamos chamar a funcao assincrona do RXJS (subscribe)*/
-      this.listaEstudantes.saveStudent(this.formGroupStudent.value).subscribe({
+      this.listaEstudantes.save(this.formGroupStudent.value).subscribe({
 
           //o next significa que deu certo na requisiçao com a API JSON
           next: json =>{
@@ -58,5 +63,34 @@ export class StudentsComponent implements OnInit {
             this.formGroupStudent.reset();
           }
       })
+  }
+
+  delete(student: Student) {
+    this.listaEstudantes.delete(student).subscribe(
+      {
+        next: () => this.loadStudents()
+      }
+    )
+  }
+
+  onClickUpdate(student: Student) {
+      this.isEditing = true;
+      this.formGroupStudent.setValue(student);
+  }
+
+  update() {
+      this.listaEstudantes.update(this.formGroupStudent.value).subscribe(
+        {
+          next: () => {
+            this.loadStudents();
+            this.clear();
+          } 
+        }
+      )
+  }
+
+  clear() {
+    this.isEditing=false;
+    this.formGroupStudent.reset();
   }
 }

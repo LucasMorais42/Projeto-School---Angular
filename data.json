@@ -52,10 +52,10 @@
     },
     {
       "id": 5,
-      "name": "Gastronomia",
-      "price": "500",
+      "name": "Medicina",
+      "price": "15000",
       "active": true,
-      "promotion": true
+      "promotion": null
     }
   ]
 }

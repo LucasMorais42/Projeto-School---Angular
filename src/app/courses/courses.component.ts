@@ -13,6 +13,7 @@ export class CoursesComponent implements OnInit{
 
   Course: Courses[]=[];
   formGroupCourses : FormGroup;
+  isEditing: boolean = false;
 
   constructor(private listaCursos:CourseListService, private formBuilder: FormBuilder){
     
@@ -27,17 +28,50 @@ export class CoursesComponent implements OnInit{
 
 
   ngOnInit():void{
-    this.listaCursos.getCourses().subscribe({
-      next: json => this.Course=json
-  })
+    this.loadCourses();
 }
 
+  loadCourses(){
+    this.listaCursos.getCourses().subscribe({
+    next: json => this.Course=json
+    })
+  }
+
   save(){
-      this.listaCursos.saveCourses(this.formGroupCourses.value).subscribe({
+      this.listaCursos.save(this.formGroupCourses.value).subscribe({
           next: json =>{
             this.Course.push(json);
             this.formGroupCourses.reset();
           }
       })
   }
+
+  delete(course: Courses) {
+      this.listaCursos.delete(course).subscribe(
+        {
+          next: () => this.loadCourses()
+        }
+      )
+    }
+  
+    onClickUpdate(course: Courses) {
+        this.isEditing = true;
+        this.formGroupCourses.setValue(course);
+    }
+  
+    update() {
+        this.listaCursos.update(this.formGroupCourses.value).subscribe(
+          {
+            next: () => {
+              this.loadCourses();
+              this.clear();
+            } 
+          }
+        )
+    }
+  
+    clear() {
+      this.isEditing=false;
+      this.formGroupCourses.reset();
+    }
 }

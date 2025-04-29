@@ -17,7 +17,15 @@ export class CourseListService {
   }
 
 
-  saveCourses(student: Courses): Observable<Courses>{
-        return this.http.post<Courses>(this.apiUrl, student);
+  save(course: Courses): Observable<Courses>{
+        return this.http.post<Courses>(this.apiUrl, course);
     }
+
+  delete(course:Courses): Observable<void>{
+      return this.http.delete<void>(`${this.apiUrl}/${course.id}`);
+    }
+  
+    update(course: Courses) : Observable<Courses> {
+      return this.http.put<Courses>(`${this.apiUrl}/${course.id}`,course);
+    }  
 }

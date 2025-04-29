@@ -15,7 +15,13 @@
                     <small id="courseHelp" class="form-text text-muted">Digite o nome do curso</small>
                 </div>
 
-                <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
+                <button *ngIf="!isEditing"  class="btn btn-primary" (click)="save()">Salvar</button>
+
+                <button *ngIf="isEditing"   class="btn btn-primary" (click)="update()">Atualizar</button>
+
+                <button class="btn btn-secondary ms-2" (click)="clear()">Cancelar</button>
+
+
             </form>
 
             
@@ -28,6 +34,8 @@
                     <th scope="col">id</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Curso</th>
+                    <th scope="col">Remover</th>
+                    <th scope="col">Alterar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,6 +46,12 @@
                     <th scope="row">{{s.id}}</th>
                     <td>{{s.name}}</td>
                     <td>{{s.course}}</td>
+                    <td>
+                      <button class="btn btn-danger" (click)="delete(s)">Remover</button>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary" (click)="onClickUpdate(s)">Alterar</button>
+                    </td>
                     
                   </tr>
                 
