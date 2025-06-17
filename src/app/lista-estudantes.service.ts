@@ -8,7 +8,7 @@ import { Student } from './student';
 })
 export class ListaEstudantesService {
 
-  private apiUrl = "http://localhost:3000/students";
+  private apiUrl = "http://98.82.12.190/students";
 
   constructor(private http:HttpClient) { }
   
